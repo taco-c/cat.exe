@@ -80,5 +80,4 @@ void wash (CAT, bool);
 void stare (CAT, bool);
 void sit (CAT, bool);
 
-
 #endif /* CATEXE_CAT_H */
