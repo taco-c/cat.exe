@@ -9,8 +9,8 @@
 #endif
 
 #ifdef __linux__
-#include <unistd.h> /* usleep */
-#define SLEEP usleep
+#include <unistd.h> /* sleep */
+#define SLEEP sleep
 #endif
 
 #ifdef DEBUG
@@ -70,14 +70,14 @@ const int LOCATION_COUNT = 19;
 #define CLOSE_TO_FOOD 0
 
 void printSleepyCat ();
-void think (CAT);
-void sleep (CAT, bool);
-void dream (CAT);
-void eat (CAT);
-void walk (CAT, bool);
-void stretch (CAT, bool);
-void wash (CAT, bool);
-void stare (CAT, bool);
-void sit (CAT, bool);
+void cat_think (CAT);
+void cat_sleep (CAT, bool);
+void cat_dream (CAT);
+void cat_eat (CAT);
+void cat_walk (CAT, bool);
+void cat_stretch (CAT, bool);
+void cat_wash (CAT, bool);
+void cat_stare (CAT, bool);
+void cat_sit (CAT, bool);
 
 #endif /* CATEXE_CAT_H */

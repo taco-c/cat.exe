@@ -37,7 +37,7 @@ main (int argc, char **argv)
 	/* Infinite cat loop goodness. */
 	while (1)
 	{
-		think(kitty);
+		cat_think(kitty);
 
 		#ifdef DEBUG
 		printf("[ [%d] H:%d, M:%d, S:%d, D:%d ]\n",
@@ -51,20 +51,20 @@ main (int argc, char **argv)
 		if (kitty.sleepiness > 20)
 		{
 			kitty.mood--;
-			sleep(kitty, FIRST_TIME);
+			cat_sleep(kitty, FIRST_TIME);
 		}
 		else if (kitty.dirtiness > 20)
 		{
 			kitty.mood--;
-			wash(kitty, FIRST_TIME);
+			cat_wash(kitty, FIRST_TIME);
 		}
 		else if (kitty.hunger > 20)
 		{
 			kitty.mood--;
 			SLEEP(TIME_BETWEEN_ACTIONS);
 
-			if (location == CLOSE_TO_FOOD) { eat(kitty); }
-			else { walk(kitty, TO_FOOD); eat(kitty); }
+			if (location == CLOSE_TO_FOOD) { cat_eat(kitty); }
+			else { cat_walk(kitty, TO_FOOD); cat_eat(kitty); }
 		}
 
 		tick++;
@@ -77,7 +77,7 @@ main (int argc, char **argv)
 
 /* Cat decides what to do. */
 void
-think (CAT kitty)
+cat_think (CAT kitty)
 {
 	int action = rand() % 7;
 	
@@ -85,7 +85,7 @@ think (CAT kitty)
 	   make cat think it over again */
 	if (action == prevAction)
 	{
-		think(kitty);
+		cat_think(kitty);
 	}
 	else
 	{
@@ -93,25 +93,25 @@ think (CAT kitty)
 		switch (action)
 		{
 			case 0:
-				sleep(kitty, FIRST_TIME);
+				cat_sleep(kitty, FIRST_TIME);
 				break;
 			case 1:
-				eat(kitty);
+				cat_eat(kitty);
 				break;
 			case 2:
-				walk(kitty, TO_ANYWHERE);
+				cat_walk(kitty, TO_ANYWHERE);
 				break;
 			case 3:
-				stretch(kitty, FIRST_TIME);
+				cat_stretch(kitty, FIRST_TIME);
 				break;
 			case 4:
-				wash(kitty, FIRST_TIME);
+				cat_wash(kitty, FIRST_TIME);
 				break;
 			case 5:
-				stare(kitty, FIRST_TIME);
+				cat_stare(kitty, FIRST_TIME);
 				break;
 			case 6:
-				sit(kitty, FIRST_TIME);
+				cat_sit(kitty, FIRST_TIME);
 				break;
 		}
 	}
@@ -127,7 +127,7 @@ printSleepyCat ()
 }
 
 void
-sleep (CAT kitty, bool again)
+cat_sleep (CAT kitty, bool again)
 {
 	int sleepTimeInSec = rand() % MAX_CAT_SLEEPING_TIME;
 	time_t awakeTime = time(NULL) + sleepTimeInSec;
@@ -146,7 +146,7 @@ sleep (CAT kitty, bool again)
 	while ( time(NULL) < awakeTime )
 	{
 		/* Cat dreams every second while asleep. */
-		dream(kitty);
+		cat_dream(kitty);
 		SLEEP(1000);
 	}
 
@@ -160,20 +160,20 @@ sleep (CAT kitty, bool again)
 	if (rand() % 100 < 25 + kitty.sleepiness)
 	{
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		sleep(kitty, AGAIN);
+		cat_sleep(kitty, AGAIN);
 	}
 }
 
 /* Dreaming will allow the cat's mood to normalize. */
 void
-dream (CAT kitty)
+cat_dream (CAT kitty)
 {
 	if (rand() % 100 < (50 + kitty.mood)) { kitty.mood--; } /* Bad dream. */
 	else { kitty.mood++; } /* Good dream. */
 }
 
 void
-eat (CAT kitty)
+cat_eat (CAT kitty)
 {
 	if (location == CLOSE_TO_FOOD)
 	{
@@ -197,7 +197,7 @@ eat (CAT kitty)
 	{
 		kitty.mood--;
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		walk(kitty, TO_ANYWHERE);
+		cat_walk(kitty, TO_ANYWHERE);
 	}
 
 	kitty.dirtiness++;
@@ -205,7 +205,7 @@ eat (CAT kitty)
 }
 
 void
-walk (CAT kitty, bool toFood) {
+cat_walk (CAT kitty, bool toFood) {
 	prev_location = location;
 	
 	if (toFood == TO_FOOD) { location = CLOSE_TO_FOOD; }
@@ -229,7 +229,7 @@ walk (CAT kitty, bool toFood) {
 }
 
 void
-stretch (CAT kitty, bool again)
+cat_stretch (CAT kitty, bool again)
 {
 	printf("%s stretches", kitty.name);
 	if (again == AGAIN) { printf(" some more.\n\n"); }
@@ -243,12 +243,12 @@ stretch (CAT kitty, bool again)
 	if (rand() % 100 < 25 + kitty.mood)
 	{
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		stretch(kitty, AGAIN);
+		cat_stretch(kitty, AGAIN);
 	}
 }
 
 void
-wash (CAT kitty, bool again)
+cat_wash (CAT kitty, bool again)
 {
 	printf("%s washes itself", kitty.name);
 	
@@ -263,12 +263,12 @@ wash (CAT kitty, bool again)
 	if (rand() % 100 < 25 + kitty.dirtiness)
 	{
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		wash(kitty, AGAIN);
+		cat_wash(kitty, AGAIN);
 	}
 }
 
 void
-stare (CAT kitty, bool again)
+cat_stare (CAT kitty, bool again)
 {
 	printf("%s stares into the wall", kitty.name);
 	
@@ -282,12 +282,12 @@ stare (CAT kitty, bool again)
 	if (rand() % 100 < 50 + kitty.mood)
 	{
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		stare(kitty, AGAIN);
+		cat_stare(kitty, AGAIN);
 	}
 }
 
 void
-sit (CAT kitty, bool again)
+cat_sit (CAT kitty, bool again)
 {
 	printf("%s sits", kitty.name);
 	
@@ -301,6 +301,6 @@ sit (CAT kitty, bool again)
 	if (rand() % 100 < 50 + kitty.mood)
 	{
 		SLEEP(TIME_BETWEEN_ACTIONS);
-		sit(kitty, AGAIN);
+		cat_sit(kitty, AGAIN);
 	}
 }
