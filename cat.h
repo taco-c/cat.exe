@@ -36,16 +36,16 @@ typedef unsigned char bool;
 typedef struct
 {
     char *name;
-	int hunger;
-	int mood;
-	int sleepiness;
-	int dirtiness;
+    int hunger;
+    int mood;
+    int sleepiness;
+    int dirtiness;
 } CAT;
 
 /* Places where the cat can be. */
 char *LOCATIONS[] = {
     "by it's bowl",
-	"in it's bed",
+    "in it's bed",
     "on the sofa",
     "under the sofa",
     "in the kitchen",
