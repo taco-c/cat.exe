@@ -15,3 +15,9 @@ Then run `cat.exe` with an optional argument for the cat's name, if you are so i
 ## How to pet the cat?
 
 No petting allowed or wanted.
+
+## Licencing
+
+Licenced under the GNU GLP v3 licence, so that Microsoft won't to use it to spy on you with this software.
+
+You're welcome.
