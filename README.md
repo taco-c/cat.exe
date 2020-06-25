@@ -18,6 +18,6 @@ No petting allowed or wanted.
 
 ## Licencing
 
-Licenced under the GNU GLP v3 licence, so that Microsoft won't to use it to spy on you with this software.
+Licenced under the GNU GLP v3 licence, so that Microsoft won't to use it to spy on you.
 
 You're welcome.
